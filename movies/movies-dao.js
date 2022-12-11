@@ -9,7 +9,11 @@ export const createMovie = async (movie) => {
     return actualInsertedMovie
 }
 export const deleteMovie = async (mid) => {
-    const status = await moviesModel.deleteOne({_id: mid})
+    const status = await moviesModel.deleteOne({id: mid})
+    return status
+}
+export const findMovie = async (mid) => {
+    const status = await moviesModel.findById({id: mid})
     return status
 }
 export const updateMovie = () => {}

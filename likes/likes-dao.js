@@ -1,15 +1,14 @@
 import likesModel from "./likes-model.js";
 
 export const userLikesMovie = async (uid, mid) => {
-    return await likesModel.create({user: uid, movie: mid})
+    return await likesModel.create({user: uid, movie: mid,liked:true})
 }
-export const userUnlikesMovie = async(uid, mid) => {
-    return await likesModel.deleteOne({user: uid, movie: mid})
-}
+
 export const findMoviesLikedByUser = async(uid) => {
     return await likesModel
-        .find({user: uid}, {user: false})
+        .find({user: uid}, {user: true})
         .populate('movie', 'title')
+        .populate('movie', '_id')
         .exec()
 }
 export const findUsersThatLikeMovie = async(mid) => {

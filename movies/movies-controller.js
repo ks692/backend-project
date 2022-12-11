@@ -1,17 +1,21 @@
 import * as movieDao from './movies-dao.js'
+import {findMovie} from "./movies-dao.js";
 
 
 export const getMovies = () => movies;
 
 const MoviesController = (app) => {
-
     const createMovie   = async (req, res) => {
         const movie = req.body
-        // movie["_id"] = (new Date()).getTime() + ''
-        // movie["likes"] = 0
-        // movie["liked"] = false
-        // movies.push(movie)
-        const actualMovie = await movieDao.createMovie(movie)
+        let movieBody={
+            _id: movie.id,
+            title: movie.title.romaji,
+            image: movie.coverImage.large,
+            averageScore: movie.averageScore
+        }
+        console.log(movieBody)
+         const actualMovie = await movieDao.createMovie(movieBody)
+
         res.send(actualMovie)
     }
     const findAllMovies = async (req, res) => {
@@ -32,8 +36,6 @@ const MoviesController = (app) => {
     const deleteMovie   = async (req, res) => {
         const mid = req.params['mid']
         const status = await movieDao.deleteMovie(mid)
-        // movies = movies.filter(
-        //     (m) => m._id !== mid)
         res.send(status)
     }
 
