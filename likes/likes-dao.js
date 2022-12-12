@@ -7,8 +7,7 @@ export const userLikesMovie = async (uid, mid) => {
 export const findMoviesLikedByUser = async(uid) => {
     return await likesModel
         .find({user: uid}, {user: true})
-        .populate('movie', 'title')
-        .populate('movie', '_id')
+        .populate('movie')
         .exec()
 }
 export const findUsersThatLikeMovie = async(mid) => {
